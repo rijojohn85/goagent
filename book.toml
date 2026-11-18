@@ -1,0 +1,5 @@
+[book]
+title = "Build Your Own Agent Harness in Go"
+authors = ["Rijo John"]
+language = "en"
+src = "src"

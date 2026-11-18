@@ -1,0 +1,4 @@
+$ ANTHROPIC_API_KEY=x ./goagent
+# state: final, no prompt
+goagent: usage: goagent "your question"
+exit=1

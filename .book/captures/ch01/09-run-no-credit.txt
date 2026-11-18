@@ -1,0 +1,4 @@
+$ ./goagent "What is the capital of France?"
+# state: final, real key, no credit
+goagent: API returned 400 Bad Request: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAajS8xBWdwu1js8ma8m"}
+exit=1

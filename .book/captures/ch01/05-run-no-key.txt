@@ -1,0 +1,5 @@
+$ unset ANTHROPIC_API_KEY
+$ ./goagent "What is the capital of France?"
+# state: final, no key
+goagent: ANTHROPIC_API_KEY is not set
+exit=1

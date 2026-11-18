@@ -1,0 +1,3 @@
+$ ./goagent What is the capital of France?
+# state: step 2, zsh, unquoted ?
+zsh:1: no matches found: France?

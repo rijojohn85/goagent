@@ -1,0 +1,4 @@
+$ ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
+# state: step 4 with the status check deleted on purpose
+[stop: , tokens in: 0, out: 0]
+exit=0

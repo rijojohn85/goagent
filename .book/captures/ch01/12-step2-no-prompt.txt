@@ -1,0 +1,4 @@
+$ ./goagent
+# state: step 2
+goagent: usage: goagent "your question"
+exit=1

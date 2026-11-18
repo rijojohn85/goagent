@@ -1,0 +1,4 @@
+$ ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
+# state: final, wrong key
+goagent: API returned 401 Unauthorized: {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChAaWvtDkyV4xssRYEehT"}
+exit=1

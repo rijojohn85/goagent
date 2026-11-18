@@ -52,6 +52,11 @@ This file overrides the project-book skill on every rule it states.
 - Always show `make check` / `make build`, not raw go commands, once the
   Makefile exists.
 
+## Model (user rule, 2026-11-18)
+- Every API call, in the book's code and in captures, uses Haiku
+  (`claude-haiku-5-5`) or Sonnet (`claude-sonnet-5-5`). Never Opus or Fable.
+  The book's default is Haiku 5.5.
+
 ## Docs
 - Always check live docs before drafting (Context7 first, then official
   docs on the web). Never rely on memory for API shapes, versions, headers.

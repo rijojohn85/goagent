@@ -18,7 +18,8 @@ repo wins: fix this file.
     pointed out 1.27 is released; latest stable.
   - Provider: Claude only, raw `net/http`, no SDK. Why: the book teaches
     the wire format; a provider abstraction adds a chapter for little.
-  - Model: `claude-opus-5-5` (current default per claude-api skill).
+  - Model: `claude-haiku-5-5`; Sonnet 5.5 allowed. User rule: API calls
+    use only Haiku or Sonnet, never Opus (2026-11-18).
   - API version header: `2026-10-21` (platform.claude.com migration guide).
   - MCP spec: `2026-07-28` (stateless; sessions removed from HTTP).
   - Tests: testify, a few per chapter where they earn it, from Ch2.
@@ -68,8 +69,9 @@ repo wins: fix this file.
   (1) curl success JSON via `| jq`, (2) Step 3 raw JSON from goagent,
   (3) Try it: goagent answer + `[stop: ...]` line. grep PLACEHOLDER.
   Also the outline's "What the finished tool does" (fill at Ch18).
-- Check when filling: does the reply contain a `thinking` block (Opus 5.5
-  thinking is always on, display omitted by default)? If so, mention it in
+- Check when filling: does the Haiku 5.5 reply contain a `thinking` block?
+  Not yet confirmed from live docs; the chapter says only "Claude can send
+  thinking blocks". If so, mention it in
   the curl walkthrough.
 - **Next:** once credit is added, run the three captures, replace the
   placeholders, mdbook build, commit. Then when the user says Ch1 works,
@@ -88,3 +90,5 @@ repo wins: fix this file.
 - 2026-11-18 Claude Code (Opus 5.5): outline approved; book repo created;
   Ch1 code built and verified in scratch with Go 1.27.4; Ch1 drafted with
   real failure captures; success captures blocked on API credit.
+- 2026-11-18 Claude Code: switched the book to claude-haiku-5-5 (user rule);
+  re-captured 01, 02, 08, 09, 11, 16, 17; still no credit (400).

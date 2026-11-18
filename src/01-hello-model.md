@@ -55,7 +55,7 @@ $ curl -s https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
-    -d '{"model":"claude-opus-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}' | jq
+    -d '{"model":"claude-haiku-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}' | jq
 ```
 
 Here's what each part does:
@@ -71,8 +71,10 @@ Here's what each part does:
   still send the old date keep the old behavior. We send the newest one.
 - **`content-type: application/json`**: tells the server the body is JSON.
 - **The body** has three required fields:
-  - `model`: which Claude model answers. `claude-opus-5-5` is the current
-    Opus.
+  - `model`: which Claude model answers. `claude-haiku-5-5` is the
+    current Haiku, the smallest and cheapest Claude model. It's plenty for
+    this book and keeps your bill tiny. If you want stronger answers later,
+    `claude-sonnet-5-5` (the current Sonnet) is the next step up.
   - `max_tokens`: the most the reply may use, in tokens. A token is a
     piece of a word; a short English word is often one token. If Claude
     hits this limit, the reply is cut off.
@@ -94,7 +96,7 @@ The reply is JSON with a few important fields:
 - **`content`** is a *list* of blocks, not one string. Each block has a
   `type`. A `text` block holds words for you to read. Later chapters meet
   other kinds: `tool_use` (Claude asking us to run a tool) and `thinking`
-  (Claude's reasoning, which Opus 5.5 does on every request). That's why
+  (Claude's reasoning, when it thinks before answering). That's why
   it's a list: one reply can hold several kinds of thing.
 - **`stop_reason`** says *why* Claude stopped. `end_turn` means "I'm done".
   `max_tokens` means "I ran out of room". In Chapter 6, `tool_use` will
@@ -112,21 +114,21 @@ With no key at all you get (headers trimmed):
 
 ```
 HTTP/2 401
-{"type":"error","error":{"type":"authentication_error","message":"x-api-key header is required"},"request_id":"req_011ChAaSZoquhKEGMU1Buk9Z"}
+{"type":"error","error":{"type":"authentication_error","message":"x-api-key header is required"},"request_id":"req_011ChAe2wCWrksbbH5rkAnDc"}
 ```
 
 `401` means "I don't know who you are". With a key that's wrong, the status is the same,
 but the message is different:
 
 ```
-{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChAaSbGuhTRuK2R431Enn"}
+{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChAe2xo1jDkfnexWwznXF"}
 ```
 
 And with a real key on an account with no credit left, you get a `400`:
 
 ```
 HTTP/2 400
-{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAajQ9ep2S69kWXqAmbx"}
+{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAe2zNkapJbzP4KFiUwA"}
 ```
 
 Errors always have the same shape: `"type": "error"`, then an `error`
@@ -210,7 +212,7 @@ next step.
 The body `curl` sent was this JSON:
 
 ```json
-{"model":"claude-opus-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}
+{"model":"claude-haiku-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}
 ```
 
 We could build that string by hand, but one quote in the user's question
@@ -242,7 +244,7 @@ Here's what you need:
 
 > **Your turn.** Write `main.go` in package `main`:
 >
-> 1. Two constants: `model` = `"claude-opus-5-5"` and `maxTokens` = `1024`.
+> 1. Two constants: `model` = `"claude-haiku-5-5"` and `maxTokens` = `1024`.
 >    Naming them means no unexplained "magic" values buried in the code.
 > 2. A struct `message` with `Role` and `Content` strings (JSON names
 >    `role` and `content`).
@@ -278,7 +280,7 @@ import (
 
 // Names for values that would otherwise be "magic" strings in the code.
 const (
-	model     = "claude-opus-5-5"
+	model     = "claude-haiku-5-5"
 	maxTokens = 1024 // the most tokens (word pieces) the reply may use
 )
 
@@ -354,7 +356,7 @@ $ ./goagent "What is the capital of France?"
 ```
 
 ```
-{"model":"claude-opus-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}
+{"model":"claude-haiku-5-5","max_tokens":1024,"messages":[{"role":"user","content":"What is the capital of France?"}]}
 ```
 
 That's exactly the body `curl` sent. Now try it with no question:
@@ -455,7 +457,7 @@ const (
 	apiURL       = "https://api.anthropic.com/v1/messages"
 	apiVersion   = "2026-10-21" // the API version we were written against
 	apiKeyEnvVar = "ANTHROPIC_API_KEY"
-	model        = "claude-opus-5-5"
+	model        = "claude-haiku-5-5"
 	maxTokens    = 1024 // the most tokens (word pieces) the reply may use
 )
 ```
@@ -526,7 +528,7 @@ $ ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of Fran
 ```
 
 ```
-goagent: API returned 401 Unauthorized: {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChAarLhEY4KmCotMiNM1A"}
+goagent: API returned 401 Unauthorized: {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChAe38zgAH364fqLissKV"}
 ```
 
 That's the same error `curl` got, now coming through Go. Set your real key
@@ -575,7 +577,7 @@ Reading JSON into Go is the same idea in reverse:
 > 3. Replace the final raw print: `Unmarshal` `raw` into a
 >    `messageResponse` (`fail("decoding reply: %v", err)` on error). Then
 >    print the `Text` of every block whose `Type` is `"text"`, one per line.
->    Skip the others. Opus 5.5 can also send `thinking` blocks, and their
+>    Skip the others. Claude can also send `thinking` blocks, and their
 >    text isn't meant for you.
 > 4. Last, print one line to **standard error**:
 >    `[stop: end_turn, tokens in: N, out: M]`. It goes to standard error
@@ -682,7 +684,7 @@ $ ./goagent "What is the capital of France?"
 ```
 
 ```
-goagent: API returned 400 Bad Request: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAajS8xBWdwu1js8ma8m"}
+goagent: API returned 400 Bad Request: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAe3G84CvCT2zHuEyutF"}
 ```
 
 ## What this chapter doesn't do

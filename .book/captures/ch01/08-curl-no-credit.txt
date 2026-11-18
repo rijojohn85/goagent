@@ -1,3 +1,3 @@
-# state: real key, account has no credit
+# state: real key, no credit, model haiku
 HTTP/2 400 
-{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAajQ9ep2S69kWXqAmbx"}
+{"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011ChAe2zNkapJbzP4KFiUwA"}

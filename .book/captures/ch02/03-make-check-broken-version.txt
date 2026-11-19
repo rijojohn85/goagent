@@ -1,0 +1,25 @@
+/usr/local/go/bin/go vet ./...
+/usr/local/go/bin/go test ./...
+?   	goagent	[no test files]
+--- FAIL: TestSendReturnsReply (0.00s)
+    client_test.go:28: 
+        	Error Trace:	/home/rijojohn/goagent-book/.book/scratch/ch02-step4/claude/client_test.go:28
+        	            				/home/rijojohn/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.4.linux-amd64/src/net/http/server.go:2362
+        	            				/home/rijojohn/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.4.linux-amd64/src/net/http/server.go:3440
+        	            				/home/rijojohn/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.4.linux-amd64/src/net/http/server.go:2161
+        	            				/home/rijojohn/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.4.linux-amd64/src/runtime/asm_amd64.s:1264
+        	Error:      	Not equal: 
+        	            	expected: "2026-10-21"
+        	            	actual  : "2023-06-01"
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -1 +1 @@
+        	            	-2026-10-21
+        	            	+2023-06-01
+        	Test:       	TestSendReturnsReply
+FAIL
+FAIL	goagent/claude	0.005s
+FAIL
+make: *** [Makefile:10: check] Error 1

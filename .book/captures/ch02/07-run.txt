@@ -1,0 +1,3 @@
+The capital of France is **Paris**.
+[stop: end_turn, tokens in: 16, out: 14]
+exit 0

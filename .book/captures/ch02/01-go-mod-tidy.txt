@@ -1,0 +1,4 @@
+go: finding module for package github.com/stretchr/testify/require
+go: finding module for package github.com/stretchr/testify/assert
+go: found github.com/stretchr/testify/assert in github.com/stretchr/testify v1.12.1
+go: found github.com/stretchr/testify/require in github.com/stretchr/testify v1.12.1

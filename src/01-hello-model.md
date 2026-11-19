@@ -41,8 +41,8 @@ You need an API key from the Claude Console (console.anthropic.com). Put it
 in an environment variable, a named value your shell passes to every
 program it starts:
 
-```
-$ export ANTHROPIC_API_KEY=sk-ant-...your key...
+```sh
+export ANTHROPIC_API_KEY=sk-ant-...your key...
 ```
 
 Keep the key out of your code and out of git. Anyone who has it can spend
@@ -50,8 +50,8 @@ your credit.
 
 Now send one question:
 
-```
-$ curl -s https://api.anthropic.com/v1/messages \
+```sh
+curl -s https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21" \
     -H "content-type: application/json" \
@@ -195,10 +195,10 @@ see why each piece comes out.
 Make the folder for your code and start a Go module in it. A module is Go's
 name for a project: a folder with a `go.mod` file that names it.
 
-```
-$ mkdir goagent
-$ cd goagent
-$ go mod init goagent
+```sh
+mkdir goagent
+cd goagent
+go mod init goagent
 ```
 
 ```
@@ -378,8 +378,8 @@ knowledge, here "how goagent reports a fatal error", lives in one spot.
 
 Check it, build it, and run it:
 
-```
-$ make check
+```sh
+make check
 ```
 
 ```
@@ -391,9 +391,9 @@ $ make check
 (Your Go path may be different.) `[no test files]` is fine: tests start in
 Chapter 2.
 
-```
-$ make build
-$ ./goagent "What is the capital of France?"
+```sh
+make build
+./goagent "What is the capital of France?"
 ```
 
 ```
@@ -402,8 +402,8 @@ $ ./goagent "What is the capital of France?"
 
 That's exactly the body `curl` sent. Now try it with no question:
 
-```
-$ ./goagent
+```sh
+./goagent
 ```
 
 ```
@@ -414,8 +414,8 @@ goagent: usage: goagent "your question"
 filename pattern. zsh looks for files matching `France?`, finds none, and
 refuses to run the command at all:
 
-```
-$ ./goagent What is the capital of France?
+```sh
+./goagent What is the capital of France?
 ```
 
 ```
@@ -551,10 +551,10 @@ And in place of the last `fmt.Println`:
 `make check` should still pass. Build it and try the failures first, since
 they cost nothing. With no key:
 
-```
-$ make build
-$ unset ANTHROPIC_API_KEY
-$ ./goagent "What is the capital of France?"
+```sh
+make build
+unset ANTHROPIC_API_KEY
+./goagent "What is the capital of France?"
 ```
 
 ```
@@ -564,8 +564,8 @@ goagent: ANTHROPIC_API_KEY is not set
 With a wrong key (setting a variable in front of a command sets it for that
 one command only):
 
-```
-$ ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
+```sh
+ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
 ```
 
 ```
@@ -575,9 +575,9 @@ goagent: API returned 401 Unauthorized: {"type":"error","error":{"type":"authent
 That's the same error `curl` got, now coming through Go. Set your real key
 again and ask for real:
 
-```
-$ export ANTHROPIC_API_KEY=sk-ant-...your key...
-$ ./goagent "What is the capital of France?"
+```sh
+export ANTHROPIC_API_KEY=sk-ant-...your key...
+./goagent "What is the capital of France?"
 ```
 
 ```
@@ -672,8 +672,8 @@ And in place of the raw print at the end of `main`:
 
 </details>
 
-```
-$ make check
+```sh
+make check
 ```
 
 ```
@@ -684,9 +684,9 @@ $ make check
 
 ## Try it
 
-```
-$ make build
-$ ./goagent "What is the capital of France?"
+```sh
+make build
+./goagent "What is the capital of France?"
 ```
 
 ```
@@ -702,8 +702,8 @@ You can see the split by throwing standard error away. `2>` redirects
 standard error (stream number 2), and `/dev/null` is a file that swallows
 whatever is written to it:
 
-```
-$ ./goagent "What is the capital of France?" 2>/dev/null
+```sh
+./goagent "What is the capital of France?" 2>/dev/null
 ```
 
 ```
@@ -714,8 +714,8 @@ Only the answer is left.
 
 A longer question uses more tokens:
 
-```
-$ ./goagent "Explain in two sentences what an HTTP status code is."
+```sh
+./goagent "Explain in two sentences what an HTTP status code is."
 ```
 
 ```
@@ -728,8 +728,8 @@ An HTTP status code is a three-digit number that a server returns in response to
 Delete the `if resp.StatusCode != http.StatusOK` block for a moment,
 rebuild, and use a wrong key:
 
-```
-$ ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
+```sh
+ANTHROPIC_API_KEY=sk-ant-not-a-real-key ./goagent "What is the capital of France?"
 ```
 
 ```
@@ -747,8 +747,8 @@ answer was "no". **Put the check back** before you go on.
 If your account runs out of credit, the API answers `400`, and goagent says
 so plainly:
 
-```
-$ ./goagent "What is the capital of France?"
+```sh
+./goagent "What is the capital of France?"
 ```
 
 ```
@@ -776,11 +776,11 @@ goagent: API returned 400 Bad Request: {"type":"error","error":{"type":"invalid_
 Create a `.gitignore` with the line `goagent`, so the built program isn't
 committed. Then:
 
-```
-$ make check
-$ git init
-$ git add -A
-$ git commit -m "Chapter 1: one request to Claude, print the answer"
+```sh
+make check
+git init
+git add -A
+git commit -m "Chapter 1: one request to Claude, print the answer"
 ```
 
 ## What you should now be able to answer

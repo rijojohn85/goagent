@@ -46,8 +46,9 @@ This file overrides the project-book skill on every rule it states.
   needs something we can't run, a clearly marked placeholder, filled later.
 - Every chapter ends with: `make check` green, one git commit, "what you
   should now be able to answer", one-paragraph preview of the next.
-- Terminal blocks: commands start with `$ `. Output has no prefix. Command
-  and output in separate blocks.
+- Terminal blocks: **no `$ ` prompt** (user rule, 2026-11-19: it breaks
+  copy-paste). Commands go in a ```` ```sh ```` block, output in a plain
+  ```` ``` ```` block right after. Command and output in separate blocks.
 - Later chapters show edits, not full reprints. Say which file and where.
 - Always show `make check` / `make build`, not raw go commands, once the
   Makefile exists.

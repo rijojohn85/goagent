@@ -48,8 +48,9 @@ behave the same way. Later chapters build on the book's version, so if
 yours is different, check that the names the next chapter uses still
 exist.
 
-Every terminal block in this book was run for real. Commands start with
-`$ `; everything without `$ ` is output, so don't paste it into your shell.
+Every terminal block in this book was run for real. Commands sit in their
+own block with no `$` prompt, so you can copy and paste them as they are.
+The block right after a command shows its output; don't paste that.
 
 The check command is `make check`. It runs `go vet` (which looks for likely
 bugs) and `go test`. Every chapter ends with it passing and one git commit.

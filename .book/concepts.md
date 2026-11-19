@@ -22,3 +22,21 @@ one-line reminder.
 | Makefile check/build, .PHONY, GO := $(shell which go) | Ch1 Step 1 | |
 | DRY (named at fail) | Ch1 Step 2 | |
 | zsh glob on unquoted `?` | Ch1 Step 2 | |
+| Go packages, import path = module + folder, exported = capital letter | Ch2 Step 1 | |
+| Content as list of blocks both directions (string = shorthand) | Ch2 Step 1 | Ch3, Ch6 |
+| `omitempty` JSON tag | Ch2 Step 1 | |
+| Methods, pointer receivers | Ch2 Step 1 (+ fakeSender note) | |
+| error interface, own error type (APIError), errors.As | Ch2 Step 2, Q4 | Ch4 |
+| Anonymous struct as a local variable type | Ch2 Step 2 | |
+| %d vs %s, %!s(int=...) | Ch2 Step 2 | |
+| Dependency injection (NewClient params) | Ch2 Step 3 | |
+| fmt.Errorf %w, packages return errors not exit | Ch2 Step 3 | |
+| httptest.NewServer / URL / Client / Close, HandlerFunc | Ch2 Step 4 | |
+| _test.go, TestXxx, testify require vs assert, JSONEq, ErrorAs, EqualError | Ch2 Step 4/5 | |
+| assert only (not require) inside handler goroutine | Ch2 Step 4 | |
+| t.Cleanup, test helper (DRY), arrange-act-assert | Ch2 Step 4 | |
+| go mod tidy (after writing imports), go.sum | Ch2 Step 4 | |
+| Break a test on purpose to see it fail | Ch2 Step 4 | |
+| Interfaces satisfied implicitly; dependency inversion (interface lives with user) | Ch2 Step 5 | Ch6, Ch7, Ch15 |
+| io.Writer, bytes.Buffer for capturing output | Ch2 Step 5 | |
+| run(...) error pattern; main only wires + exits | Ch2 Step 5 | |

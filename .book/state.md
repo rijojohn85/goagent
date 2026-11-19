@@ -39,8 +39,8 @@ repo wins: fix this file.
 | Ch | Title | Status |
 |---|---|---|
 | 0 | How this book works (outline) | written |
-| 1 | Hello, model | written (awaiting user) |
-| 2 | Typed messages | planned |
+| 1 | Hello, model | done |
+| 2 | Typed messages | written (awaiting user) |
 | 3 | A chat prompt | planned |
 | 4 | When the API says no | planned |
 | 5 | Streaming | planned |
@@ -60,20 +60,37 @@ repo wins: fix this file.
 
 ## Current work
 
-- Chapter: 1, Hello, model
+- Chapter: 2, Typed messages
 - Phase: awaiting user
-- Done: scratch code final in `.book/scratch/goagent` (step2/, step3/,
-  nostatus/ hold in-between states). Captures 01–17 in captures/ch01.
-- Placeholders filled 2026-11-19 from captures 18–22 (Haiku 5.5). The
-  reply had no `thinking` block (thinking_tokens 0); the chapter says so.
-  Only remaining placeholder: the outline's "What the finished tool does"
-  (fill at Ch18).
-- **Next:** when the user says Ch1 works,
-  check their `goagent/` (read only) and start Ch2.
+- Design: package `claude` (types.go: Request, Message{Role, Content
+  []ContentBlock}, ContentBlock{Type, Text}, TextBlock, Response.Text(),
+  Usage, RoleUser/RoleAssistant; error.go: APIError + newAPIError;
+  client.go: Client, NewClient(apiKey, baseURL, *http.Client),
+  DefaultBaseURL, Send(ctx, Request)). main.go: messageSender interface,
+  run(ctx, sender, prompt, stdout, stderr) error. Tests: claude/client_test.go
+  (httptest: reply + APIError), main_test.go (fakeSender: prints, error).
+- Scratch: goagent/ = final; ch01-final/, ch02-step3/, ch02-step4/ in-between.
+- Captures ch02: 01 tidy, 02 step3 check, 03 broken version, 04 step4
+  check, 05 final check, 06 build, 07 run, 08 wrong key.
+- Sources: platform.claude.com messages content param (string = one text
+  block), Context7 /stretchr/testify (v1.12.1 latest via proxy.golang.org),
+  pkg.go.dev httptest.
+- Chapter written, solutions verified identical to scratch files, mdbook builds.
+- **Next:** when the user says Ch2 works, check their goagent/ (read
+  only), then Ch3 (A chat prompt: history slice, RoleAssistant, system prompt).
 
 ## User's code vs the book's
 
-- (none yet; user hasn't written Ch1)
+- Module path `github.com/rijojohn85/goagent` (book: `goagent`); imports
+  of `goagent/claude` become `github.com/rijojohn85/goagent/claude`.
+- Go 1.24.5 installed, go.mod says `go 1.24.5` (book: 1.27.4). Ch2 code
+  works on 1.24; told user to upgrade.
+- Makefile build is `go build ./...`: with 2 packages it writes NO binary
+  (verified 2026-11-19). Told user to use `-o goagent .`.
+- `fail("API returned %s: ...", resp.StatusCode)`: %s with int → prints
+  `%!s(int=401)`; vet misses it (format is concatenated). Gone in Ch2.
+- Split `usage` into its own named type already (book does it in Ch2).
+- `goagent/goagent` binary is tracked in git (no ignore rule); told user.
 
 ## Open questions
 
@@ -88,3 +105,5 @@ repo wins: fix this file.
   re-captured 01, 02, 08, 09, 11, 16, 17; still no credit (400).
 - 2026-11-19 Claude Code: key has credit again; captured real successes
   (18–22) and filled the three Ch1 placeholders.
+- 2026-11-19 Claude Code: user finished Ch1 (commit 08ed2c9); Ch1 done.
+  Ch2 code built in scratch, all captures real; Ch2 written.

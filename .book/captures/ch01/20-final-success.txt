@@ -1,0 +1,5 @@
+$ ./goagent "What is the capital of France?"
+# state: final, key with credit, haiku
+The capital of France is **Paris**.
+[stop: end_turn, tokens in: 16, out: 14]
+exit=0

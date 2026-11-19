@@ -39,7 +39,7 @@ repo wins: fix this file.
 | Ch | Title | Status |
 |---|---|---|
 | 0 | How this book works (outline) | written |
-| 1 | Hello, model | written (awaiting user), 3 placeholders |
+| 1 | Hello, model | written (awaiting user) |
 | 2 | Typed messages | planned |
 | 3 | A chat prompt | planned |
 | 4 | When the API says no | planned |
@@ -64,17 +64,11 @@ repo wins: fix this file.
 - Phase: awaiting user (and awaiting API credit)
 - Done: scratch code final in `.book/scratch/goagent` (step2/, step3/,
   nostatus/ hold in-between states). Captures 01–17 in captures/ch01.
-- **Blocked:** the API account has no credit (400 "credit balance is too
-  low"). Three placeholders in `src/01-hello-model.md` need real output:
-  (1) curl success JSON via `| jq`, (2) Step 3 raw JSON from goagent,
-  (3) Try it: goagent answer + `[stop: ...]` line. grep PLACEHOLDER.
-  Also the outline's "What the finished tool does" (fill at Ch18).
-- Check when filling: does the Haiku 5.5 reply contain a `thinking` block?
-  Not yet confirmed from live docs; the chapter says only "Claude can send
-  thinking blocks". If so, mention it in
-  the curl walkthrough.
-- **Next:** once credit is added, run the three captures, replace the
-  placeholders, mdbook build, commit. Then when the user says Ch1 works,
+- Placeholders filled 2026-11-19 from captures 18–22 (Haiku 5.5). The
+  reply had no `thinking` block (thinking_tokens 0); the chapter says so.
+  Only remaining placeholder: the outline's "What the finished tool does"
+  (fill at Ch18).
+- **Next:** when the user says Ch1 works,
   check their `goagent/` (read only) and start Ch2.
 
 ## User's code vs the book's
@@ -92,3 +86,5 @@ repo wins: fix this file.
   real failure captures; success captures blocked on API credit.
 - 2026-11-18 Claude Code: switched the book to claude-haiku-5-5 (user rule);
   re-captured 01, 02, 08, 09, 11, 16, 17; still no credit (400).
+- 2026-11-19 Claude Code: key has credit again; captured real successes
+  (18–22) and filled the three Ch1 placeholders.

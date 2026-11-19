@@ -1,0 +1,4 @@
+$ ./goagent "Explain in two sentences what an HTTP status code is."
+# state: final, longer question
+An HTTP status code is a three-digit number that a server returns in response to a client's request, indicating whether the request succeeded, failed, or requires further action. The first digit defines the general category of the response, such as 2xx for success, 4xx for client errors, and 5xx for server errors.
+[stop: end_turn, tokens in: 26, out: 91]

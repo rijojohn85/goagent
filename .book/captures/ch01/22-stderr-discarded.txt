@@ -1,0 +1,3 @@
+$ ./goagent "What is the capital of France?" 2>/dev/null
+# state: final, stderr discarded
+The capital of France is **Paris**.

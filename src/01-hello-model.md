@@ -84,12 +84,41 @@ Here's what each part does:
 
 You should see something like this:
 
-<!-- PLACEHOLDER: real curl success output goes here. Capture blocked on
-2026-11-18: the account had no API credit. Never hand-type it. -->
-
-> **Placeholder.** The real reply goes here once it's captured. It will
-> show the reply's `id`, `type: "message"`, `role: "assistant"`, the
-> `content` list, `stop_reason`, and `usage`.
+```json
+{
+  "model": "claude-haiku-5-5",
+  "id": "msg_011ChBdvL6UTWsBBgt3UPuTF",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+    {
+      "type": "text",
+      "text": "The capital of France is **Paris**."
+    }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 14,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard"
+  },
+  "diagnostics": null
+}
+```
 
 The reply is JSON with a few important fields:
 
@@ -103,7 +132,19 @@ The reply is JSON with a few important fields:
   mean "please run a tool and tell me the result". The agent loop is built
   around this one field.
 - **`usage`** counts tokens in (your request) and out (the reply). This is
-  what you pay for.
+  what you pay for. Here it's 16 in and 14 out. Its `output_tokens_details`
+  says how many of the output tokens were spent thinking: 0 this time,
+  because a question this easy needed no thinking, so there's no `thinking`
+  block in `content` either.
+
+The rest you can ignore for now. `id` names this one reply. `stop_sequence`,
+`stop_details`, `container` and `diagnostics` are `null` because we didn't
+use the features they belong to. Your `id` will be different, and Claude's
+wording may be too. The *shape* is what matters.
+
+Notice the `**Paris**`. Claude writes Markdown, a plain-text format where
+`**word**` means bold. A web page would show it as bold; a terminal shows
+the stars as they are. goagent prints it as it is, which is fine for now.
 
 ### When it goes wrong
 
@@ -539,10 +580,9 @@ $ export ANTHROPIC_API_KEY=sk-ant-...your key...
 $ ./goagent "What is the capital of France?"
 ```
 
-<!-- PLACEHOLDER: real raw JSON from Step 3 goes here (blocked: no API
-credit on 2026-11-18). -->
-
-> **Placeholder.** The real raw JSON reply goes here once it's captured.
+```
+{"model":"claude-haiku-5-5","id":"msg_011ChBdvx6AzEQhWFLvgXX78","type":"message","role":"assistant","content":[{"type":"text","text":"The capital of France is **Paris**."}],"container":null,"stop_reason":"end_turn","stop_sequence":null,"stop_details":null,"usage":{"input_tokens":16,"cache_creation_input_tokens":0,"cache_read_input_tokens":0,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":14,"output_tokens_details":{"thinking_tokens":0},"service_tier":"standard","inference_geo":"global","speed":"standard"},"diagnostics":null}
+```
 
 It's the same JSON `curl` printed, just not pretty-printed. It works, but
 nobody wants to read that. Next we pull out the part you'd actually read.
@@ -649,11 +689,39 @@ $ make build
 $ ./goagent "What is the capital of France?"
 ```
 
-<!-- PLACEHOLDER: real goagent success output (blocked: no API credit on
-2026-11-18). -->
+```
+The capital of France is **Paris**.
+[stop: end_turn, tokens in: 16, out: 14]
+```
 
-> **Placeholder.** The real answer, then the `[stop: ..., tokens in: ...,
-> out: ...]` line, goes here once it's captured.
+The answer goes to standard output. The line in brackets goes to standard
+error. `end_turn` means Claude finished on its own, and the tokens match
+what `curl` showed: 16 in, 14 out.
+
+You can see the split by throwing standard error away. `2>` redirects
+standard error (stream number 2), and `/dev/null` is a file that swallows
+whatever is written to it:
+
+```
+$ ./goagent "What is the capital of France?" 2>/dev/null
+```
+
+```
+The capital of France is **Paris**.
+```
+
+Only the answer is left.
+
+A longer question uses more tokens:
+
+```
+$ ./goagent "Explain in two sentences what an HTTP status code is."
+```
+
+```
+An HTTP status code is a three-digit number that a server returns in response to a client's request, indicating whether the request succeeded, failed, or requires further action. The first digit defines the general category of the response, such as 2xx for success, 4xx for client errors, and 5xx for server errors.
+[stop: end_turn, tokens in: 26, out: 91]
+```
 
 ### Why the status check matters
 

@@ -61,7 +61,7 @@ repo wins: fix this file.
 ## Current work
 
 - Chapter: 1, Hello, model
-- Phase: awaiting user (and awaiting API credit)
+- Phase: awaiting user
 - Done: scratch code final in `.book/scratch/goagent` (step2/, step3/,
   nostatus/ hold in-between states). Captures 01–17 in captures/ch01.
 - Placeholders filled 2026-11-19 from captures 18–22 (Haiku 5.5). The

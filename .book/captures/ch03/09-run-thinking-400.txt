@@ -1,0 +1,7 @@
+> Paris.
+[stop: end_turn, tokens in: 54, out: 6]
+> Paris has about 2.1 million residents within city limits. The wider Paris metropolitan area has roughly 12 to 13 million.
+[stop: end_turn, tokens in: 66, out: 99]
+> goagent: API error 400 invalid_request_error: messages.3.content.0.thinking.thinking: Field required (request req_011ChKN3Z7BPzkCrurGBMwo1)
+> 
+exit 0

@@ -1,0 +1,25 @@
+/usr/local/go/bin/go vet ./...
+/usr/local/go/bin/go test ./...
+ok  	goagent	0.003s
+--- FAIL: TestReplyBlocksGoBackUnchanged (0.00s)
+    types_test.go:29: 
+        	Error Trace:	/home/rijojohn/goagent-book/.book/scratch/ch03-step3/claude/types_test.go:29
+        	Error:      	Not equal: 
+        	            	expected: []interface {}{map[string]interface {}{"content":[]interface {}{map[string]interface {}{"signature":"c2lnbmF0dXJl", "thinking":"", "type":"thinking"}, map[string]interface {}{"text":"Paris.", "type":"text"}}, "role":"assistant"}, map[string]interface {}{"content":[]interface {}{map[string]interface {}{"text":"And its population?", "type":"text"}}, "role":"user"}}
+        	            	actual  : []interface {}{map[string]interface {}{"content":[]interface {}{map[string]interface {}{"type":"thinking"}, map[string]interface {}{"text":"Paris.", "type":"text"}}, "role":"assistant"}, map[string]interface {}{"content":[]interface {}{map[string]interface {}{"text":"And its population?", "type":"text"}}, "role":"user"}}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -3,5 +3,3 @@
+        	            	   (string) (len=7) "content": ([]interface {}) (len=2) {
+        	            	-   (map[string]interface {}) (len=3) {
+        	            	-    (string) (len=9) "signature": (string) (len=12) "c2lnbmF0dXJl",
+        	            	-    (string) (len=8) "thinking": (string) "",
+        	            	+   (map[string]interface {}) (len=1) {
+        	            	     (string) (len=4) "type": (string) (len=8) "thinking"
+        	Test:       	TestReplyBlocksGoBackUnchanged
+FAIL
+FAIL	goagent/claude	0.005s
+FAIL
+make: *** [Makefile:10: check] Error 1

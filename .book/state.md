@@ -40,8 +40,8 @@ repo wins: fix this file.
 |---|---|---|
 | 0 | How this book works (outline) | written |
 | 1 | Hello, model | done |
-| 2 | Typed messages | written (awaiting user) |
-| 3 | A chat prompt | planned |
+| 2 | Typed messages | done |
+| 3 | A chat prompt | drafting |
 | 4 | When the API says no | planned |
 | 5 | Streaming | planned |
 | 6 | The agent loop (walking skeleton) | planned |
@@ -60,26 +60,41 @@ repo wins: fix this file.
 
 ## Current work
 
-- Chapter: 2, Typed messages
-- Phase: awaiting user
-- Design: package `claude` (types.go: Request, Message{Role, Content
-  []ContentBlock}, ContentBlock{Type, Text}, TextBlock, Response.Text(),
-  Usage, RoleUser/RoleAssistant; error.go: APIError + newAPIError;
-  client.go: Client, NewClient(apiKey, baseURL, *http.Client),
-  DefaultBaseURL, Send(ctx, Request)). main.go: messageSender interface,
-  run(ctx, sender, prompt, stdout, stderr) error. Tests: claude/client_test.go
-  (httptest: reply + APIError), main_test.go (fakeSender: prints, error).
-- Scratch: goagent/ = final; ch01-final/, ch02-step3/, ch02-step4/ in-between.
-- Captures ch02: 01 tidy, 02 step3 check, 03 broken version, 04 step4
-  check, 05 final check, 06 build, 07 run, 08 wrong key.
-- Sources: platform.claude.com messages content param (string = one text
-  block), Context7 /stretchr/testify (v1.12.1 latest via proxy.golang.org),
-  pkg.go.dev httptest.
-- Chapter written, solutions verified identical to scratch files, mdbook builds.
-- **Next:** when the user says Ch2 works, check their goagent/ (read
-  only), then Ch3 (A chat prompt: history slice, RoleAssistant, system prompt).
+- Chapter: 3, A chat prompt
+- Phase: drafting (code + captures done, chapter file next)
+- Design: claude.Request gets `System string omitempty`. ContentBlock gets
+  unexported `raw json.RawMessage` + UnmarshalJSON (keeps bytes, via
+  `type plain ContentBlock`) + MarshalJSON (raw if set) so API blocks
+  (thinking + signature) go back byte for byte. main: systemPrompt const;
+  run(ctx, sender, stdin io.Reader, stdout, stderr) reads lines with
+  bufio.Scanner, "> " prompt on stderr, skips blank lines, prints error and
+  keeps chatting. chat.go: `chat{sender, history}` + `ask(ctx, q)` appends
+  user msg, sends, rolls back on error, appends assistant reply.Content.
+  Tests: main_test (fakeSender with scripted answers + slices.Clone of
+  messages; RemembersTheConversation, DropsAQuestionThatFailed),
+  claude/types_test (TestReplyBlocksGoBackUnchanged), client_test sends System.
+- Discovery (real, captured 09): Haiku 5.5 adaptive thinking is ON by
+  default, display omitted -> {"type":"thinking","thinking":"","signature":..};
+  dropping fields gives 400 "messages.3.content.0.thinking.thinking: Field
+  required". Docs: platform.claude.com/docs/en/build-with-claude/thinking
+  (default on; blocks must go back unmodified), api/messages (system top
+  level; stateless; consecutive same-role merged), working-with-messages.
+- Scratch: goagent/ = final; ch02-final, ch03-step1, ch03-step2, ch03-step3.
+- Captures ch03: 01 gap, 02 step1 check, 03 curl system+history, 04 old
+  tests break, 05 shared-slice failure, 06 step2 check, 07 step3 check,
+  08 build, 09 run hits thinking 400, 10 stdout only, 11 types test fails
+  on old code, 12 step4 check, 13 final run, 14 interactive (pty).
+- **Next:** write src/03-chat-prompt.md, SUMMARY, concepts, mdbook build, commit.
 
 ## User's code vs the book's
+
+- Ch2 review (2026-11-23): make check green on Go 1.24.5. Bugs told to
+  user: client.go Send uses context.Background() not ctx; main.go http
+  Timeout 2*time.Second (book: 2 minutes). Nits: main has own apiURL const
+  (use claude.DefaultBaseURL); main_test type-asserts err.(*APIError)
+  after ErrorAs (use apiErr); Text() appends "\n" after each block and run
+  prints with "%s" (book: join + Fprintln; same output for one block);
+  bin/ untracked, not ignored; Makefile build still ./...; "useage" typo.
 
 - Module path `github.com/rijojohn85/goagent` (book: `goagent`); imports
   of `goagent/claude` become `github.com/rijojohn85/goagent/claude`.
@@ -107,3 +122,6 @@ repo wins: fix this file.
   (18–22) and filled the three Ch1 placeholders.
 - 2026-11-19 Claude Code: user finished Ch1 (commit 08ed2c9); Ch1 done.
   Ch2 code built in scratch, all captures real; Ch2 written.
+- 2026-11-23 Claude Code: user finished Ch2 (uncommitted in goagent/);
+  reviewed, Ch2 done. Ch3 built in scratch; found thinking-block round-trip
+  bug live, added raw-JSON ContentBlock as Step 4. All captures real.

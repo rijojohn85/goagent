@@ -1,0 +1,5 @@
+/usr/local/go/bin/go vet ./...
+# goagent
+# [goagent]
+vet: ./main_test.go:36:43: cannot use "Capital of France?" (constant of type string) as io.Reader value in argument to run: string does not implement io.Reader (missing method Read)
+make: *** [Makefile:9: check] Error 1

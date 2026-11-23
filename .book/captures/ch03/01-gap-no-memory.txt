@@ -1,0 +1,2 @@
+I don't have a previous message to go on, so I'm not sure what place you mean. Which city, country, or region would you like the population for?
+[stop: end_turn, tokens in: 12, out: 87]

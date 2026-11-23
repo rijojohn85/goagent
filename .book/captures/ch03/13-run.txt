@@ -1,0 +1,8 @@
+> The capital of France is Paris.
+[stop: end_turn, tokens in: 54, out: 12]
+> Paris has about 2.1 million residents within the city proper (2023 estimate). The wider Paris metropolitan area has roughly 13 million.
+[stop: end_turn, tokens in: 72, out: 100]
+> You asked, "What is the capital of France?"
+[stop: end_turn, tokens in: 184, out: 16]
+> 
+exit 0

@@ -1,0 +1,7 @@
+> Name one moon of Jupiter.
+Europa.
+[stop: end_turn, tokens in: 58, out: 6]
+> How big is it?
+Europa has a diameter of about 3,122 km (1,940 miles), making it slightly smaller than Earth's Moon.
+[stop: end_turn, tokens in: 71, out: 43]
+> 

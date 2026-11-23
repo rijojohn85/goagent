@@ -1,0 +1,23 @@
+/usr/local/go/bin/go vet ./...
+/usr/local/go/bin/go test ./...
+--- FAIL: TestRunDropsAQuestionThatFailed (0.00s)
+    main_test.go:89: 
+        	Error Trace:	/home/rijojohn/goagent-book/.book/scratch/goagent/main_test.go:89
+        	Error:      	Not equal: 
+        	            	expected: []claude.Message{claude.Message{Role:"user", Content:[]claude.ContentBlock{claude.ContentBlock{Type:"text", Text:"Hi"}}}}
+        	            	actual  : []claude.Message{claude.Message{Role:"user", Content:[]claude.ContentBlock{claude.ContentBlock{Type:"text", Text:"Hi again"}}}}
+        	            	
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -6,3 +6,3 @@
+        	            	     Type: (string) (len=4) "text",
+        	            	-    Text: (string) (len=2) "Hi"
+        	            	+    Text: (string) (len=8) "Hi again"
+        	            	    }
+        	Test:       	TestRunDropsAQuestionThatFailed
+FAIL
+FAIL	goagent	0.004s
+ok  	goagent/claude	(cached)
+FAIL
+make: *** [Makefile:10: check] Error 1

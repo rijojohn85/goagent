@@ -40,3 +40,14 @@ one-line reminder.
 | Interfaces satisfied implicitly; dependency inversion (interface lives with user) | Ch2 Step 5 | Ch6, Ch7, Ch15 |
 | io.Writer, bytes.Buffer for capturing output | Ch2 Step 5 | |
 | run(...) error pattern; main only wires + exits | Ch2 Step 5 | |
+| API is stateless: send the whole history every request; tokens in grow | Ch3 intro + Try it | Ch6, Ch13 |
+| System prompt (top-level `system`, not a message) | Ch3 Step 1 | |
+| stdin, io.Reader, strings.NewReader, bufio.Scanner (Scan/Text/Err), Ctrl-D | Ch3 Step 2 | |
+| Roll back a failed turn; consecutive same-role turns get merged | Ch3 Step 2 | Ch6 |
+| Prompts/stats on stderr, answers on stdout (2>/dev/null) | Ch3 Step 2 + Try it | |
+| Slices share arrays (length/capacity); slices.Clone when keeping one | Ch3 Step 2 | Ch3 Step 4 |
+| Fake with scripted answers + recorded requests | Ch3 Step 2 | Ch4, Ch6 |
+| Single responsibility (named at chat vs run split); tests survive the split | Ch3 Step 3 | |
+| Thinking blocks (adaptive, on by default, display omitted, signature) | Ch3 Step 4 | Ch6 |
+| json.Marshaler / Unmarshaler, json.RawMessage, `type plain T` trick, copy data | Ch3 Step 4 | |
+| Write the failing test first for a flaky bug | Ch3 Step 4 | |

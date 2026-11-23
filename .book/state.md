@@ -41,7 +41,7 @@ repo wins: fix this file.
 | 0 | How this book works (outline) | written |
 | 1 | Hello, model | done |
 | 2 | Typed messages | done |
-| 3 | A chat prompt | drafting |
+| 3 | A chat prompt | written (awaiting user) |
 | 4 | When the API says no | planned |
 | 5 | Streaming | planned |
 | 6 | The agent loop (walking skeleton) | planned |
@@ -61,7 +61,7 @@ repo wins: fix this file.
 ## Current work
 
 - Chapter: 3, A chat prompt
-- Phase: drafting (code + captures done, chapter file next)
+- Phase: awaiting user
 - Design: claude.Request gets `System string omitempty`. ContentBlock gets
   unexported `raw json.RawMessage` + UnmarshalJSON (keeps bytes, via
   `type plain ContentBlock`) + MarshalJSON (raw if set) so API blocks
@@ -84,7 +84,10 @@ repo wins: fix this file.
   tests break, 05 shared-slice failure, 06 step2 check, 07 step3 check,
   08 build, 09 run hits thinking 400, 10 stdout only, 11 types test fails
   on old code, 12 step4 check, 13 final run, 14 interactive (pty).
-- **Next:** write src/03-chat-prompt.md, SUMMARY, concepts, mdbook build, commit.
+- Chapter written (src/03-chat-prompt.md, generated from a template that
+  pulls code from scratch files; all blocks verified), mdbook builds.
+- **Next:** when the user says Ch3 works, check their goagent/ (read
+  only), then Ch4 (When the API says no: 429/529, retry-after, backoff).
 
 ## User's code vs the book's
 
@@ -125,3 +128,4 @@ repo wins: fix this file.
 - 2026-11-23 Claude Code: user finished Ch2 (uncommitted in goagent/);
   reviewed, Ch2 done. Ch3 built in scratch; found thinking-block round-trip
   bug live, added raw-JSON ContentBlock as Step 4. All captures real.
+- 2026-11-23 Claude Code: Ch3 written, awaiting user.

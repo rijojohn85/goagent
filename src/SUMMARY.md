@@ -4,3 +4,4 @@
 
 - [Hello, model](01-hello-model.md)
 - [Typed messages](02-typed-messages.md)
+- [A chat prompt](03-chat-prompt.md)
